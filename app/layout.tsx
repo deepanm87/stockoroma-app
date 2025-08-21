@@ -1,20 +1,15 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import Header from "@/components/header/header"
+import type { Metadata } from "next"
+import { Inter } from "next/font/google"
+import "./globals.css"
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const inter = Inter({
+  subsets: ["latin"]
+})
 
 export const metadata: Metadata = {
   title: "Stockoroma App",
-  description: "maintain an inventory of products and their quantities",
+  description: "Inventory management app that allows users to add and remove products from the warehouse",
 };
 
 export default function RootLayout({
@@ -25,8 +20,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${inter.className}`}
       >
+        <Header />
         {children}
       </body>
     </html>
