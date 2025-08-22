@@ -1,11 +1,6 @@
+import InventoryManagementForm from "@/components/inventory-management-form/inventory-management-form"
+
 export default function Home() {
-
-  const handleSubmit = async (formData: FormData) => {
-    "use server"
-    const productName = formData.get("product-name")
-    const quantity = formData.get("quantity")
-
-  }
 
   return (
     <main className="wrapper">
@@ -17,23 +12,7 @@ export default function Home() {
           <h3>Add a new product to the warehouse</h3>
         </div>
 
-        <form className="space-y-4" action={handleSubmit}>
-          <label htmlFor="product-name" className="text-color-black">Product name</label>
-          <input 
-            type="text" 
-            placeholder="Product name" 
-            id="product-name"
-            name="product-name"
-          />
-          <label htmlFor="quantity">Quantity</label>
-          <input 
-            type="number" 
-            placeholder="quantity" 
-            id="quantity"
-            name="quantity"
-          />
-          <button type="submit" className="submit-button">Add</button>
-        </form>
+        <InventoryManagementForm />
 
       </div>
 
