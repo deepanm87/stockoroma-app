@@ -1,7 +1,8 @@
 "use server"
 
-import { createProduct } from "@/lib/db/products"
+import { createProduct, incrementLikes } from "@/lib/db/products"
 import { State } from "@/types/product-types"
+import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
 import { z } from "zod"
 
@@ -50,4 +51,24 @@ export const createProductAction = async (prevState: State, formData: FormData) 
     }
 
     redirect("/products")
+}
+
+export const incrementLikesAction = async ({ id }: { id: string }) => {
+    if (!isUserAuthenticated()) {
+        return {
+            type: "error",
+            message: "You must be logged in to increment likes"
+        }
+    }
+    try {
+        await incrementLikes({ id })
+        revalidatePath("/products")
+    } catch (error) {
+        console.error(`Error occurred in incrementing likes ${error}`)
+        return {
+            type: "error",
+            message: "Error: Failed to increment likes",
+            error: error
+        }
+    }
 }
