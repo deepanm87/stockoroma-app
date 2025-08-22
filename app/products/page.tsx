@@ -1,4 +1,5 @@
 import { LikeButton } from "@/components/like-button/like-button"
+import { DeleteButton } from "@/components/delete-button/delete-button"
 import Link from "next/link"
 import { prisma } from "@/lib/db"
 
@@ -28,6 +29,7 @@ export default async function ProductsPage() {
 
                         <div className="flex items-center gap-2">
                             <LikeButton likes={likes} id={id} />
+                            <DeleteButton id={id} />
                         </div>
                     </div>
                 ))}

@@ -1,6 +1,6 @@
 "use server"
 
-import { createProduct, incrementLikes } from "@/lib/db/products"
+import { createProduct, incrementLikes, deleteProduct } from "@/lib/db/products"
 import { State } from "@/types/product-types"
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
@@ -68,6 +68,26 @@ export const incrementLikesAction = async ({ id }: { id: string }) => {
         return {
             type: "error",
             message: "Error: Failed to increment likes",
+            error: error
+        }
+    }
+}
+
+export const deleteProductAction = async({ id }: { id: string }) => {
+    if (!isUserAuthenticated()) {
+        return {
+            type: "error",
+            message: "You must be logged in to delete products"
+        }
+    } 
+    try {
+        await deleteProduct({ id })
+        revalidatePath("/products")
+    } catch (error) {
+        console.error(`Error occurred when deleting the product ${error}`)
+        return {
+            type: "error",
+            message: "Error: Failed to delete the product",
             error: error
         }
     }
