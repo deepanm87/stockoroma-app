@@ -54,7 +54,7 @@ h3 {
 }
 
 label {
-  @apply text-gray-800 dark:text-white;
+  @apply text-gray-800 dark:text-black;
 }
 
 p {
@@ -114,6 +114,6 @@ body {
   }
 
   .submit-button {
-    @apply w-40 mt-10 px-4 text-base lg:text-xl py-2 border-2 rounded-lg bg-linear-to-r from-fuchsia-600 to-pink-600 transition-all duration-300 ease-in-out hover:from-pink-600 hover:to-orange-500 hover:scale-105 focus:from-pink-600 focus:to-orange-500 focus:scale-105 text-white cursor-pointer;
+    @apply w-40 mt-10 px-4 text-base lg:text-xl py-2 border-2 rounded-lg bg-linear-to-r from-fuchsia-600 to-pink-600 transition-all duration-300 ease-in-out hover:from-pink-600 hover:to-orange-500 hover:scale-105 focus:from-pink-600 focus:to-orange-500 focus:scale-105 text-white;
   }
 }
