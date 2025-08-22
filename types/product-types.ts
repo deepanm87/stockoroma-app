@@ -6,3 +6,8 @@ export type State = {
         quantity?: string[]
     }
 }
+
+export type createProductType = {
+    name: string
+    quantity: number
+}

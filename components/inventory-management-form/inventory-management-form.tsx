@@ -12,11 +12,11 @@ export default function InventoryManagementForm() {
         type: ""
     }
 
-    const [state, formAction] = useActionState(createProductAction, initialState)
+    const [state, formAction, pending] = useActionState(createProductAction, initialState)
 
     return (
         <form className="space-y-4" action={formAction}>
-            <label htmlFor="product-name">Product name</label>
+            { state?.type === "error" && <p className="error">{state.message}</p>}
             <InputField 
                 label="Product name"
                 name="product-name"
@@ -27,16 +27,8 @@ export default function InventoryManagementForm() {
                 name="quantity"
                 error={state?.errors?.quantity}
             />
-
-            <label htmlFor="quantity">Quantity</label>
-            <input 
-                type="number"
-                placeholder="Quantity"
-                name="quantity"
-                id="quantity"
-            />
-            <button type="submit" className="submit-button">
-                Add
+            <button disabled={pending} type="submit" className="submit-button">
+                { pending ? "Adding..." : "Add"}
             </button>
         </form>
     )
