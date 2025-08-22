@@ -1,10 +1,12 @@
 "use client"
 
 import { createProductAction } from "@/actions/product-actions"
+import { State } from "@/types/product-types"
 import { useActionState } from "react"
+import { InputField } from "../form-fields/input-field"
 
 export default function InventoryManagementForm() {
-    const initialState = {
+    const initialState: State = {
         message: "",
         errors: {},
         type: ""
@@ -15,12 +17,17 @@ export default function InventoryManagementForm() {
     return (
         <form className="space-y-4" action={formAction}>
             <label htmlFor="product-name">Product name</label>
-            <input 
-                type="text"
-                placeholder="Product name"
+            <InputField 
+                label="Product name"
                 name="product-name"
-                id="product-name"
+                error={state?.errors?.name}
             />
+            <InputField 
+                label="Quantity"
+                name="quantity"
+                error={state?.errors?.quantity}
+            />
+
             <label htmlFor="quantity">Quantity</label>
             <input 
                 type="number"

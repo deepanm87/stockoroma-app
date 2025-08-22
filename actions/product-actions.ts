@@ -1,6 +1,7 @@
 "use server"
 
 import { State } from "@/types/product-types"
+import { redirect } from "next/navigation"
 import { z } from "zod"
 
 const isUserAuthenticated = () => {
@@ -9,7 +10,7 @@ const isUserAuthenticated = () => {
 
 const formSchema = z.object({
     name: z.string().min(4, "Name should have at least 4 characters").max(100, "Name should have at most 100 characters"),
-    quantity: z.number().min(1, "Quantity should be at least 1")
+    quantity: z.coerce.number().min(1, "Quantity should be at least 1")
 })
 
 export const createProductAction = async (prevState: State,formData: FormData) => {
@@ -34,4 +35,18 @@ export const createProductAction = async (prevState: State,formData: FormData) =
             message: "Missing fields, failed to create inventory item"
         }
     }
+
+    const { name, quantity } = validatedFields.data
+
+    try {
+        await createProductAction({ name, quantity })
+    } catch (error) {
+        console.error(`Error ${error}`)
+        return {
+            type: "error",
+            message: "Failed to create inventory item"
+        }
+    }
+
+    redirect("/products")
 }
