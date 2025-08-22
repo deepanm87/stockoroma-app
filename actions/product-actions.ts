@@ -1,5 +1,6 @@
 "use server"
 
+import { createProduct } from "@/lib/db/products"
 import { State } from "@/types/product-types"
 import { redirect } from "next/navigation"
 import { z } from "zod"
@@ -13,7 +14,7 @@ const formSchema = z.object({
     quantity: z.coerce.number().min(1, "Quantity should be at least 1")
 })
 
-export const createProductAction = async (prevState: State,formData: FormData) => {
+export const createProductAction = async (prevState: State, formData: FormData) => {
     if(!isUserAuthenticated()) {
         return {
             type: "error",
@@ -39,7 +40,7 @@ export const createProductAction = async (prevState: State,formData: FormData) =
     const { name, quantity } = validatedFields.data
 
     try {
-        await createProductAction({ name, quantity })
+        await createProduct({ name, quantity })
     } catch (error) {
         console.error(`Error ${error}`)
         return {
